@@ -4,7 +4,6 @@ import os
 import chardet.universaldetector
 from PySide6 import QtWidgets
 
-import Code
 from Code import Util
 from Code.QT import Colocacion
 from Code.QT import Columnas

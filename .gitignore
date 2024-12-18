@@ -1,0 +1,36 @@
+# Ignore Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignore virtual environment directories
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+
+# Ignore distribution/build directories
+build/
+dist/
+*.egg-info/
+
+# Ignore IDE/editor specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.pgn
+bin/bug*.log
+
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore additional VSCode files
+.vscode/
+.vscode/*
+
+# Ignore UserData folder
+UserData/

@@ -199,7 +199,7 @@ class WPlayer(QtWidgets.QWidget):
         self.setLayout(layout)
 
         self.setdbGames(db_games)
-        self.setPlayer(self.leeVariable("PLAYER", ""))
+        self.setPlayer(self.readVariable("PLAYER", ""))
 
     def tabChanged(self, ntab):
         QtWidgets.QApplication.processEvents()
@@ -261,7 +261,7 @@ class WPlayer(QtWidgets.QWidget):
 
     def setdbGames(self, db_games):
         self.db_games = db_games
-        self.setPlayer(self.leeVariable("PLAYER", ""))
+        self.setPlayer(self.readVariable("PLAYER", ""))
 
     def setPlayer(self, player):
         self.player = player
@@ -369,14 +369,14 @@ class WPlayer(QtWidgets.QWidget):
         else:
             return True  # que siga con el resto de teclas
 
-    def leeVariable(self, var, default=None):
+    def readVariable(self, var, default=None):
         return self.db_games.read_config(var, default)
 
     def escVariable(self, var, valor):
         self.db_games.save_config(var, valor)
 
     def listaPlayers(self):
-        return self.leeVariable("LISTA_PLAYERS", [])
+        return self.readVariable("LISTA_PLAYERS", [])
 
     def rereadPlayers(self):
         um = QTUtil2.one_moment_please(self)
@@ -389,12 +389,12 @@ class WPlayer(QtWidgets.QWidget):
         lista = [(player, player) for player in lp]
         lista.insert(0, ("", ""))
         config = FormLayout.Combobox(_("Name"), lista, extend_seek=True)
-        li_gen.append((config, self.leeVariable("PLAYER", "")))
+        li_gen.append((config, self.readVariable("PLAYER", "")))
 
         for nalias in range(1, 4):
             li_gen.append(FormLayout.separador)
             config = FormLayout.Combobox("%s %d" % (_("Alias"), nalias), lista, extend_seek=True)
-            li_gen.append((config, self.leeVariable("ALIAS%d" % nalias, "")))
+            li_gen.append((config, self.readVariable("ALIAS%d" % nalias, "")))
 
         resultado = FormLayout.fedit(li_gen, title=_("Player"), parent=self, anchoMinimo=200, icon=Iconos.Player())
         if resultado is None:
@@ -453,9 +453,9 @@ class WPlayer(QtWidgets.QWidget):
         dicMoves = {"white": {}, "black": {}}
         dic_hap = {}
         name = self.player
-        alias1 = self.leeVariable("ALIAS1")
-        alias2 = self.leeVariable("ALIAS2")
-        alias3 = self.leeVariable("ALIAS3")
+        alias1 = self.readVariable("ALIAS1")
+        alias2 = self.readVariable("ALIAS2")
+        alias3 = self.readVariable("ALIAS3")
 
         liplayer = (name, alias1, alias2, alias3)
 

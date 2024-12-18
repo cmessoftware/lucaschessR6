@@ -1,3 +1,4 @@
+import datetime
 import os
 import random
 import stat
@@ -83,6 +84,7 @@ from Code.Tournaments import WTournaments
 from Code.Washing import ManagerWashing, WindowWashing
 from Code.WritingDown import WritingDown, ManagerWritingDown
 from Code import RemoveResults
+from Code.Services import ChessDotCom
 
 
 class Procesador:
@@ -823,46 +825,40 @@ class Procesador:
             self.menuTools_run(resp)
 
     def menuTools_run(self, resp):
-        if resp == "pgn":
-            self.visorPGN()
-
-        elif resp == "miniatura":
-            self.miniatura()
-
-        elif resp == "polyglot":
-            self.polyglot_factory()
-
-        elif resp == "polyglot_install":
-            self.polyglot_install()
-
-        elif resp == "pgn_paste":
-            self.pgn_paste()
-
-        elif resp == "juega_solo":
-            self.jugarSolo()
-
-        elif resp == "torneos":
-            self.torneos()
-        elif resp == "sts":
-            self.sts()
-        elif resp == "kibitzers":
-            self.kibitzers_manager.edit()
-        elif resp == "conf_engines":
-            self.engines()
-
-        elif resp == "manual_save":
-            self.manual_save()
-
-        elif resp.startswith("dbase_"):
-            comando = resp[6:]
-            accion = comando[0]  # R = read database,  N = create new, D = delete
-            valor = comando[2:]
-            self.database(accion, valor)
-
-        elif resp == "aperturaspers":
-            self.aperturaspers()
-        elif resp == "openings":
-            self.openings()
+        match resp:
+            case "pgn":
+                self.visor_pgn()
+            case "miniatura":
+                self.miniatura()
+            case "polyglot":
+                self.polyglot_factory()
+            case "polyglot_install":
+                self.polyglot_install()
+            case "pgn_paste":
+                self.pgn_paste()
+            case "juega_solo":
+                self.jugarSolo()
+            case "torneos":
+                self.torneos()
+            case "sts":
+                self.sts()
+            case "kibitzers":
+                self.kibitzers_manager.edit()
+            case "conf_engines":
+                self.engines()
+            case "manual_save":
+                self.manual_save()
+            case _ if resp.startswith("dbase_"):
+                comando = resp[6:]
+                accion = comando[0]  # R = read database,  N = create new, D = delete
+                valor = comando[2:]
+                self.database(accion, valor)
+            case "aperturaspers":
+                self.aperturaspers()
+            case "openings":
+                self.openings()
+            case "chess_dot_com":
+                self.visor_remote_pgn()
 
     def openings(self):
         dicline = WindowOpeningLines.openingLines(self)
@@ -957,8 +953,7 @@ class Procesador:
                         w.show()
                         w.wgames.tw_importar_pgn(path_pgn)
                     if w.exec_():
-                        if w.reiniciar:
-                            self.database("R", self.configuration.get_last_database())
+                        self.database("R", self.configuration.get_last_database())
             else:
                 Delegados.genera_pm(w.infoMove.board.piezas)
                 w.show()
@@ -997,12 +992,27 @@ class Procesador:
             side = "B" if random.randint(1, 2) == 1 else "N"
         dic["ISWHITE"] = side == "B"
         self.manager.start(dic)
+        
+    def read_remote_pgn(self, json_pgns, user_name, date):
+        fichero_pgn = user_name + "_" + str(date) + ".pgn"
+        fichero_pgn = os.path.abspath(fichero_pgn)
+        fichero_pgn = fichero_pgn.replace(":", "_") # No spaces and special characters in the name
+        fichero_pgn = fichero_pgn.replace("C_", "C:")
+
+        with open(fichero_pgn, "w") as q:
+            q.write(json_pgns)
+        cfecha_pgn = str(os.path.getmtime(fichero_pgn))
+        self.save_pgns(fichero_pgn, cfecha_pgn)
+        
 
     def read_pgn(self, fichero_pgn):
         fichero_pgn = os.path.abspath(fichero_pgn)
         cfecha_pgn = str(os.path.getmtime(fichero_pgn))
-        path_temp_pgns = self.configuration.folder_databases_pgn()
+        self.save_pgns(fichero_pgn, cfecha_pgn)
+        
 
+    def save_pgns(self, fichero_pgn, cfecha_pgn):
+        path_temp_pgns = self.configuration.folder_databases_pgn()
         li = list(os.scandir(path_temp_pgns))
         li_ant = []
         for entry in li:
@@ -1016,7 +1026,7 @@ class Procesador:
                 Util.remove_file(x.path)
 
         file_db = Util.opj(path_temp_pgns, os.path.basename(fichero_pgn)[:-3] + "lcdb")
-
+    
         if Util.exist_file(file_db):
             create = False
             db = DBgames.DBgames(file_db)
@@ -1030,6 +1040,7 @@ class Procesador:
             create = True
 
         if create:
+            print(file_db)
             db = DBgames.DBgames(file_db)
             dl_tmp = QTVarios.ImportarFicheroPGN(self.main_window)
             dl_tmp.show()
@@ -1041,10 +1052,18 @@ class Procesador:
 
         self.database("R", file_db, is_temporary=True)
 
-    def visorPGN(self):
+    def visor_pgn(self):
         path = SelectFiles.select_pgn(self.main_window)
         if path:
             self.read_pgn(path)
+            
+    def visor_remote_pgn(self):
+        user_name = "cmess4401"
+        date = datetime.datetime.now()
+        chess = ChessDotCom.ChessDotComService()
+        json_pgns = chess.get_user_pgns(user_name,date)
+        if json_pgns is not None:
+            self.read_remote_pgn(json_pgns,user_name,date)
 
     def select_1_pgn(self, wparent=None):
         wparent = self.main_window if wparent is None else wparent
