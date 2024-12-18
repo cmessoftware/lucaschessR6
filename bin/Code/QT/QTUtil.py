@@ -1,8 +1,8 @@
 import gc
+import Code
 
 from PySide6 import QtCore, QtGui, QtWidgets
-
-import Code
+from PySide6.QtGui import QGuiApplication
 
 
 class GarbageCollector(QtCore.QObject):
@@ -122,7 +122,14 @@ def center_on_desktop(window):
     """
     Centra la ventana en el escritorio
     """
-    screen = primary_screen().availableGeometry()
+    screen = primary_screen()
+    if screen is not None:
+        available_geometry = screen.availableGeometry()
+        print("Available Geometry:", available_geometry)
+    else:
+        print("No primary screen detected.")
+        return
+    
     size = window.geometry()
     window.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
 
@@ -145,11 +152,16 @@ def monitor_actual(window):
 
 
 def dic_monitores():
-    desktop = primary_screen()
-    num = desktop.screenCount()
+    app = QGuiApplication.instance()
+    if app is None:
+        app = QGuiApplication([])
+     
+    desktop = app.primaryScreen()   
+    screens = app.screens()
+    num = len(screens)
     dic = {}
     for i in range(num):
-        dic[i] = desktop.screenGeometry(i)
+        dic[i] = desktop.geometry()
     return dic
 
 
@@ -186,10 +198,10 @@ def colorIcon(xcolor, ancho, alto):
 
 
 def primary_screen():
-    app = QtWidgets.QApplication.instance()  # Get the QApplication instance
-    if app is None:  # If there's no QApplication instance, create one
-        app = QtWidgets.QApplication([])
-
+    app = QGuiApplication.instance()
+    if app is None:
+        app = QGuiApplication([])
+   
     return app.primaryScreen()
 
 
@@ -203,7 +215,9 @@ def desktop_width():
 
 
 def desktop_height():
-    return primary_screen().availableGeometry().height()
+    screen = primary_screen()
+    if screen is not None:
+        return screen.availableGeometry().height()
 
 
 def exit_application(xid):

@@ -37,7 +37,7 @@ class ManagerEverest(Manager.Manager):
 
         self.xanalyzer.maximize_multipv()
 
-        self.puntos = 0
+        self.points = 0
         self.vtime = 0.0
 
         self.book = Opening.OpeningPol(999)
@@ -70,7 +70,7 @@ class ManagerEverest(Manager.Manager):
         self.play_next_move()
 
     def set_score(self):
-        self.set_label2("%s : <b>%d</b>" % (_("Score"), self.puntos))
+        self.set_label2("%s : <b>%d</b>" % (_("Score"), self.points))
 
     def run_action(self, key):
         if key == TB_CANCEL:
@@ -110,7 +110,7 @@ class ManagerEverest(Manager.Manager):
         self.main_window.activaInformacionPGN(False)
         self.game.set_position()
         self.posJugadaObj = 0
-        self.puntos = 0
+        self.points = 0
         self.set_score()
         self.vtime = 0.0
         self.book = Opening.OpeningPol(999)
@@ -127,7 +127,7 @@ class ManagerEverest(Manager.Manager):
 
     def restart(self, lost_points):
         self.terminaNoContinuo()
-        change_game, is_last, is_last_last = self.expedition.add_try(False, self.vtime, self.puntos)
+        change_game, is_last, is_last_last = self.expedition.add_try(False, self.vtime, self.points)
         self.vtime = 0.0
         licoment = []
         if lost_points:
@@ -189,7 +189,7 @@ class ManagerEverest(Manager.Manager):
         if self.state == ST_ENDGAME:
             return
 
-        if self.puntos < -self.expedition.tolerance:
+        if self.points < -self.expedition.tolerance:
             self.restart(True)
             self.state = ST_ENDGAME
             self.set_toolbar((TB_CLOSE, TB_CONFIG, TB_UTILITIES))
@@ -314,7 +314,7 @@ class ManagerEverest(Manager.Manager):
             else:
                 dpts = rm_usu.score_abs5() - rm_obj.score_abs5()
 
-            self.puntos += dpts
+            self.points += dpts
             self.set_score()
 
             if pos_usu != pos_obj:
@@ -323,10 +323,10 @@ class ManagerEverest(Manager.Manager):
 
                 comentario_puntos = "%s = %d %+d %+d = %d" % (
                     _("Score"),
-                    self.puntos - dpts,
+                    self.points - dpts,
                     rm_usu.centipawns_abs(),
                     -rm_obj.centipawns_abs(),
-                    self.puntos,
+                    self.points,
                 )
                 comment = "%s: %s %s\n%s: %s %s\n%s" % (
                     self.name_obj,
@@ -372,7 +372,7 @@ class ManagerEverest(Manager.Manager):
 
         self.state = ST_ENDGAME
 
-        change_game, is_last, is_last_last = self.expedition.add_try(True, self.vtime, self.puntos)
+        change_game, is_last, is_last_last = self.expedition.add_try(True, self.vtime, self.points)
 
         if is_last:
             mensaje = _("Congratulations, goal achieved")

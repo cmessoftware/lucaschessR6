@@ -35,6 +35,7 @@ from Code.SQL import UtilSQL
 from Code.Themes import WDB_Theme_Analysis
 from Code.Translations import TrListas
 from Code.Voyager import Voyager
+from Code.Services import  ChessDotCom
 
 
 class WGames(QtWidgets.QWidget):
@@ -696,15 +697,13 @@ class WGames(QtWidgets.QWidget):
             um.final()
 
 
-    def tw_import_from_chessdotcom(self):
-        pass
-    
     
     def tw_import(self):
         menu = QTVarios.LCMenu(self)
         menu.opcion(self.tw_importar_pgn, _("From a PGN file"), Iconos.FichPGN())
         menu.separador()
         menu.opcion(self.tw_import_from_chessdotcom, _("From Chess.com PGN"), Iconos.ChessDotCom())
+        menu.separador()
         menu.opcion(self.tw_importar_db, _("From other database"), Iconos.Database())
         menu.separador()
         if self.db_games.allows_positions and (self.db_games.reccount() == 0 or not self.db_games.allows_duplicates):
@@ -1544,7 +1543,13 @@ class WGames(QtWidgets.QWidget):
         pb.close()
         if not pb.is_canceled():
             Code.startfile(path_csv)
-
+            
+    def tw_import_from_chessdotcom(self):
+        username = "cmess4401"  
+        from datetime import datetime
+        ChessDotCom.get_player_archives_games(username, datetime.now())
+    
+    
     def tw_importar_pgn(self, path_pgn=None):
         if path_pgn is None:
             files = SelectFiles.select_pgns(self)

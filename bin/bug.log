@@ -1,139 +1,303 @@
-2024-12-11 23:54:01.838260
+2024-12-18 02:27:08.031305
 Traceback (most recent call last):
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\LucasR.py", line 20, in <module>
-    Code.Base.Init.init()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Base\Init.py", line 18, in init
-    resp = LucasChessGui.run_gui(main_procesador)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\LucasChessGui.py", line 133, in run_gui
-    procesador.iniciar_gui()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 181, in iniciar_gui
-    self.main_window = MainWindow.MainWindow(self)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\MainWindow.py", line 28, in __init__
-    self.base = WBase.WBase(self, manager)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 85, in __init__
-    self.create_toolbar()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 138, in create_toolbar
-    action = QtGui.QAction(titulo, self.tb)
-             ^^^^^
-NameError: name 'QtGui' is not defined
-2024-12-12 00:15:57.351346
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1056, in visor_remote_pgn
+    json_pgns = ChessDotComService.get_user_pgns(user_name,date)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'Code.Services.ChessDotComService' has no attribute 'get_user_pgns'
+2024-12-18 02:30:05.690225
 Traceback (most recent call last):
-  File "C:\Users\CFO Tech\AppData\Local\Programs\PyCharm Community\plugins\python-ce\helpers\pydev\pydevd.py", line 1570, in _exec
-    pydev_imports.execfile(file, globals, locals)  # execute the script
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\AppData\Local\Programs\PyCharm Community\plugins\python-ce\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
-    exec(compile(contents+"\n", file, 'exec'), glob, loc)
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\LucasR.py", line 20, in <module>
-    Code.Base.Init.init()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Base\Init.py", line 18, in init
-    resp = LucasChessGui.run_gui(main_procesador)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\LucasChessGui.py", line 133, in run_gui
-    procesador.iniciar_gui()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 181, in iniciar_gui
-    self.main_window = MainWindow.MainWindow(self)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\MainWindow.py", line 28, in __init__
-    self.base = WBase.WBase(self, manager)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 85, in __init__
-    self.create_toolbar()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 138, in create_toolbar
-    action = QtGui.QAction(titulo, self.tb)
-             ^^^^^
-NameError: name 'QtGui' is not defined
-2024-12-12 00:17:08.511907
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1056, in visor_remote_pgn
+    json_pgns = ChessDotComService.get_user_pgns(user_name,date)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'Code.Services.ChessDotComService' has no attribute 'get_user_pgns'
+2024-12-18 02:35:06.293212
 Traceback (most recent call last):
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\LucasR.py", line 20, in <module>
-    Code.Base.Init.init()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Base\Init.py", line 18, in init
-    resp = LucasChessGui.run_gui(main_procesador)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\LucasChessGui.py", line 133, in run_gui
-    procesador.iniciar_gui()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 181, in iniciar_gui
-    self.main_window = MainWindow.MainWindow(self)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\MainWindow.py", line 28, in __init__
-    self.base = WBase.WBase(self, manager)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 85, in __init__
-    self.create_toolbar()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 138, in create_toolbar
-    action = QtGui.QAction(titulo, self.tb)
-             ^^^^^
-NameError: name 'QtGui' is not defined
-2024-12-13 22:51:56.377581
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1056, in visor_remote_pgn
+    json_pgns = ChessDotComService.get_user_pgns(user_name,date)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'Code.Services.ChessDotComService' has no attribute 'get_user_pgns'
+2024-12-18 02:46:56.277733
 Traceback (most recent call last):
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\LucasR.py", line 19, in <module>
-    Code.Base.Init.init()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Base\Init.py", line 21, in init
-    resp = LucasChessGui.run_gui(main_procesador)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\LucasChessGui.py", line 133, in run_gui
-    procesador.iniciar_gui()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 181, in iniciar_gui
-    self.main_window = MainWindow.MainWindow(self)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\MainWindow.py", line 43, in __init__
-    self.cursorthinking = QCursor(
-                          ^^^^^^^
-NameError: name 'QCursor' is not defined
-2024-12-13 22:52:11.091906
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1056, in visor_remote_pgn
+    json_pgns = ChessDotComService.get_user_pgns(user_name,date)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: get_user_pgns() missing 2 required positional arguments: 'year' and 'month'
+2024-12-18 02:48:29.630665
 Traceback (most recent call last):
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\LucasR.py", line 19, in <module>
-    Code.Base.Init.init()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Base\Init.py", line 21, in init
-    resp = LucasChessGui.run_gui(main_procesador)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\LucasChessGui.py", line 133, in run_gui
-    procesador.iniciar_gui()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 181, in iniciar_gui
-    self.main_window = MainWindow.MainWindow(self)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\MainWindow.py", line 43, in __init__
-    self.cursorthinking = QCursor(
-                          ^^^^^^^
-NameError: name 'QCursor' is not defined
-2024-12-13 22:53:30.937250
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1056, in visor_remote_pgn
+    json_pgns = ChessDotComService.get_user_pgns(user_name,date)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: get_user_pgns() missing 1 required positional argument: 'date'
+2024-12-18 02:50:20.733444
 Traceback (most recent call last):
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\LucasR.py", line 19, in <module>
-    Code.Base.Init.init()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Base\Init.py", line 21, in init
-    resp = LucasChessGui.run_gui(main_procesador)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\LucasChessGui.py", line 133, in run_gui
-    procesador.iniciar_gui()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 181, in iniciar_gui
-    self.main_window = MainWindow.MainWindow(self)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\MainWindow.py", line 43, in __init__
-    self.cursorthinking = QCursor(
-                          ^^^^^^^
-NameError: name 'QCursor' is not defined
-2024-12-13 23:02:49.593114
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1056, in visor_remote_pgn
+    json_pgns = ChessDotComService.get_user_pgns(user_name,date)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: get_user_pgns() missing 1 required positional argument: 'date'
+2024-12-18 02:55:38.295234
 Traceback (most recent call last):
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Board\Board.py", line 1271, in mouseReleaseEvent
-    QtWidgets.QGraphicsView.mouseReleaseEvent(self, event)
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Board\BoardElements.py", line 348, in mouseReleaseEvent
-    self.board.try_to_move(self, event.scenePos(), event.button())
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Board\Board.py", line 1851, in try_to_move
-    pieza_sc.rehazPosicion()
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Board\BoardElements.py", line 298, in rehazPosicion
-    self.setPos(physical_pos.x, physical_pos.y)
-RuntimeError: Error calling Python override of QGraphicsItem::mouseReleaseEvent(): Internal C++ object (PiezaSC) already deleted.
-2024-12-13 23:23:17.665705
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1056, in visor_remote_pgn
+    json_pgns = ChessDotComService.get_user_pgns(user_name,date)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'Code.Services.ChessDotComService' has no attribute 'get_user_pgns'
+2024-12-18 03:00:57.470445
 Traceback (most recent call last):
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\MainWindow.py", line 199, in changeEvent
-    def changeEvent(self, event):
-
-KeyboardInterrupt
-2024-12-14 15:51:49.475631
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1056, in visor_remote_pgn
+    json_pgns = ChessDotCom.ChessDotComService.get_user_pgns(user_name,date)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ChessDotComService.get_user_pgns() missing 1 required positional argument: 'date'
+2024-12-18 03:04:39.037155
 Traceback (most recent call last):
-  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\MainWindow.py", line 199, in changeEvent
-    def changeEvent(self, event):
-
-KeyboardInterrupt
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1057, in visor_remote_pgn
+    json_pgns = chess.get_user_pgns(user_name,date)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Services\ChessDotCom.py", line 40, in get_user_pgns
+    url = f"{self.base_url}/player/{username}/games/{date.year}/{date.moth}/pgn"
+                                                                 ^^^^^^^^^
+AttributeError: 'datetime.datetime' object has no attribute 'moth'. Did you mean: 'month'?
+2024-12-18 03:08:42.777841
+Traceback (most recent call last):
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1059, in visor_remote_pgn
+    self.read_remote_pgn(json_pgns,user_name,date)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 999, in read_remote_pgn
+    self.save_pgns(fichero_pgn, cfecha_pgn)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1037, in save_pgns
+    db = DBgames.DBgames(file_db)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Databases\DBgames.py", line 48, in __init__
+    self.conexion = sqlite3.connect(self.path_file)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: unable to open database file
+2024-12-18 03:11:04.429836
+Traceback (most recent call last):
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1060, in visor_remote_pgn
+    self.read_remote_pgn(json_pgns,user_name,date)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 999, in read_remote_pgn
+    self.save_pgns(fichero_pgn, cfecha_pgn)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1038, in save_pgns
+    db = DBgames.DBgames(file_db)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Databases\DBgames.py", line 48, in __init__
+    self.conexion = sqlite3.connect(self.path_file)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: unable to open database file
+2024-12-18 03:12:53.538874
+Traceback (most recent call last):
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1060, in visor_remote_pgn
+    self.read_remote_pgn(json_pgns,user_name,date)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 999, in read_remote_pgn
+    self.save_pgns(fichero_pgn, cfecha_pgn)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1038, in save_pgns
+    db = DBgames.DBgames(file_db)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Databases\DBgames.py", line 48, in __init__
+    self.conexion = sqlite3.connect(self.path_file)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: unable to open database file
+2024-12-18 03:15:15.901149
+Traceback (most recent call last):
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1060, in visor_remote_pgn
+    self.read_remote_pgn(json_pgns,user_name,date)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 999, in read_remote_pgn
+    self.save_pgns(fichero_pgn, cfecha_pgn)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1038, in save_pgns
+    db = DBgames.DBgames(file_db)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Databases\DBgames.py", line 48, in __init__
+    self.conexion = sqlite3.connect(self.path_file)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: unable to open database file
+2024-12-18 03:16:43.111921
+Traceback (most recent call last):
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1061, in visor_remote_pgn
+    self.read_remote_pgn(json_pgns,user_name,date)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 999, in read_remote_pgn
+    self.save_pgns(fichero_pgn, cfecha_pgn)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1039, in save_pgns
+    db = DBgames.DBgames(file_db)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Databases\DBgames.py", line 48, in __init__
+    self.conexion = sqlite3.connect(self.path_file)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: unable to open database file
+2024-12-18 03:18:51.142369
+Traceback (most recent call last):
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1060, in visor_remote_pgn
+    self.read_remote_pgn(json_pgns,user_name,date)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 999, in read_remote_pgn
+    self.save_pgns(fichero_pgn, cfecha_pgn)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1038, in save_pgns
+    db = DBgames.DBgames(file_db)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Databases\DBgames.py", line 48, in __init__
+    self.conexion = sqlite3.connect(self.path_file)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: unable to open database file
+2024-12-18 03:26:40.893542
+Traceback (most recent call last):
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1064, in visor_remote_pgn
+    self.read_remote_pgn(json_pgns,user_name,date)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 999, in read_remote_pgn
+    with open(fichero_pgn, "wt", encoding="utf-8", errors="ignore") as q:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument: 'C:\\Users\\CFO Tech\\source\\repos\\lucaschess\\lucaschessR6\\bin\\cmess4401_2024-12-18 03:26:22.068888.pgn'
+2024-12-18 03:28:10.252571
+Traceback (most recent call last):
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1065, in visor_remote_pgn
+    self.read_remote_pgn(json_pgns,user_name,date)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1001, in read_remote_pgn
+    with open(fichero_pgn, "wt", encoding="utf-8", errors="ignore") as q:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C_\\Users\\CFO_Tech\\source\\repos\\lucaschess\\lucaschessR6\\bin\\cmess4401_2024-12-18_03_27_50.730537.pgn'
+2024-12-18 03:30:51.321414
+Traceback (most recent call last):
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 583, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 825, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 861, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1065, in visor_remote_pgn
+    self.read_remote_pgn(json_pgns,user_name,date)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1001, in read_remote_pgn
+    with open(fichero_pgn, "w") as q:
+         ^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C_\\Users\\CFO_Tech\\source\\repos\\lucaschess\\lucaschessR6\\bin\\cmess4401_2024-12-18_03_30_45.219831.pgn'
