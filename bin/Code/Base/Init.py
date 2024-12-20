@@ -1,3 +1,4 @@
+import datetime
 import os
 import sys
 
@@ -13,7 +14,9 @@ from Code.Sound import Sound
 
 def init():
     if not Code.DEBUG:
-        sys.stderr = Util.Log("bug.log")
+        date = datetime.datetime.now()
+        log_file = f"bug-{date.strftime('%Y-%m-%d')}.log"    
+        sys.stderr = Util.Log(log_file)
 
     main_procesador = Procesador.Procesador()
     main_procesador.set_version(Code.VERSION)

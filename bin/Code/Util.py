@@ -13,11 +13,49 @@ import zlib
 
 import chardet.universaldetector
 import psutil
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QDateEdit, QPushButton
+from PySide6.QtCore import QDate
 
 
 def md5_lc(x: str) -> int:
     return int.from_bytes(hashlib.md5(x.encode()).digest(), "big") & 0xFFFFFFFFFFFFFFF
 
+
+class DateSelector(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("Date Selector")
+
+        # Create central widget
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+
+        # Create layout
+        layout = QVBoxLayout()
+
+        # Label
+        self.label = QLabel("Selected Date:")
+        layout.addWidget(self.label)
+
+        # Date Edit Widget
+        self.date_edit = QDateEdit()
+        self.date_edit.setCalendarPopup(True)  # Show a calendar popup
+        self.date_edit.setDate(QDate.currentDate())  # Set current date
+        layout.addWidget(self.date_edit)
+
+        # Button to confirm date selection
+        self.confirm_button = QPushButton("Confirm Date")
+        self.confirm_button.clicked.connect(self.show_selected_date)
+        layout.addWidget(self.confirm_button)
+
+        # Set layout to the central widget
+        central_widget.setLayout(layout)
+
+    def show_selected_date(self):
+        # Get the selected date and display it in the label
+        selected_date = self.date_edit.date().toString("yyyy-MM-dd")
+        self.label.setText(f"Selected Date: {selected_date}")
 
 class Log:
     def __init__(self, logname):

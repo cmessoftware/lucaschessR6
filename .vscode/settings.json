@@ -1,1 +1,11 @@
-{}
+{
+    "python.pythonPath": "${workspaceFolder}/venv/Scripts/python.exe", // Specify the path to your Python interpreter
+    "python.linting.enabled": true, // Enable linting
+    "python.linting.pylintEnabled": true, // Enable pylint
+    "python.linting.flake8Enabled": true, // Enable flake8
+    "python.linting.mypyEnabled": true, // Enable mypy
+    "python.formatting.provider": "autopep8", // Specify the formatter (autopep8, black, or yapf)
+    "python.testing.unittestEnabled": true, // Enable unittest
+    "python.testing.pytestEnabled": true, // Enable pytest
+    "python.testing.nosetestsEnabled": true // Enable nosetests
+}
