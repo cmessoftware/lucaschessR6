@@ -85,8 +85,6 @@ from Code.Tournaments import WTournaments
 from Code.Washing import ManagerWashing, WindowWashing
 from Code.WritingDown import WritingDown, ManagerWritingDown
 from Code import RemoveResults
-from Code.Services import ChessDotCom
-from Code.Services import WindowChessCom
 from Code.Services.WindowChessCom import WChessCom
 
 

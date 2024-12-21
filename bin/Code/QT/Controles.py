@@ -1,8 +1,15 @@
-# import datetime
-from PySide6 import QtCore, QtGui, QtWidgets
 
+from PySide6.QtWidgets import (
+    QApplication, QSlider,QListView,QRadioButton,
+    QTabWidget, QLabel, QPushButton, QLineEdit,QSpinBox,QComboBox,QCheckBox,QGroupBox,
+    QTextEdit,QMenu,QToolBar,QTabBar
+)
 
-class ED(QtWidgets.QLineEdit):
+import PySide6.QtCore as QtCore
+from  PySide6.QtGui import (QDoubleValidator,QMouseEvent,QRegularExpressionValidator,QIntValidator,
+                            QFontMetrics,QFont,QKeySequence,QCursor,QIcon,QAction,QTextOption)
+
+class ED(QLineEdit):
     """
     Control de entrada de texto en una linea.
     """
@@ -13,9 +20,9 @@ class ED(QtWidgets.QLineEdit):
         @param texto: texto inicial.
         """
         if texto:
-            QtWidgets.QLineEdit.__init__(self, texto, parent)
+            QLineEdit.__init__(self, texto, parent)
         else:
-            QtWidgets.QLineEdit.__init__(self, parent)
+            QLineEdit.__init__(self, parent)
         self.parent = parent
 
         self.decimales = 1
@@ -27,7 +34,7 @@ class ED(QtWidgets.QLineEdit):
         return self
 
     def password(self):
-        self.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
+        self.setEchoMode(QLineEdit.EchoMode.Password)
         return self
 
     def set_disabled(self, sino):
@@ -76,7 +83,7 @@ class ED(QtWidgets.QLineEdit):
 
     def controlrx(self, regexpr):
         rx = QtCore.QRegularExpression(regexpr)
-        validator = QtGui.QRegularExpressionValidator(rx, self)
+        validator = QRegularExpressionValidator(rx, self)
         self.setValidator(validator)
         return self
 
@@ -110,13 +117,13 @@ class ED(QtWidgets.QLineEdit):
         @param decimales: num. decimales
         """
         if from_sq is None:
-            self.setValidator(QtGui.QDoubleValidator(self))
+            self.setValidator(QDoubleValidator(self))
         else:
             if decimales is None:
                 decimales = self.decimales
             else:
                 self.decimales = decimales
-            self.setValidator(QtGui.QDoubleValidator(from_sq, to_sq, decimales, self))
+            self.setValidator(QDoubleValidator(from_sq, to_sq, decimales, self))
         self.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
         self.ponFloat(valor)
         return self
@@ -137,7 +144,7 @@ class ED(QtWidgets.QLineEdit):
         Valida los caracteres suponiendo que es un tipo entero con unas condiciones
         @param valor: valor inicial
         """
-        self.setValidator(QtGui.QIntValidator(self))
+        self.setValidator(QIntValidator(self))
         self.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
         self.ponInt(valor)
         return self
@@ -161,7 +168,7 @@ class ED(QtWidgets.QLineEdit):
         return int_num
 
 
-class SB(QtWidgets.QSpinBox):
+class SB(QSpinBox):
     """
     SpinBox: Entrada de numeros enteros, con control de incremento o reduccion
     """
@@ -172,7 +179,7 @@ class SB(QtWidgets.QSpinBox):
         @param from_sq: limite inferior
         @param to_sq: limite superior
         """
-        QtWidgets.QSpinBox.__init__(self, parent)
+        QSpinBox.__init__(self, parent)
         self.setRange(from_sq, to_sq)
         self.setSingleStep(1)
         self.setValue(int(valor))
@@ -196,7 +203,7 @@ class SB(QtWidgets.QSpinBox):
         return self
 
 
-class CB(QtWidgets.QComboBox):
+class CB(QComboBox):
     """
     ComboBox : entrada de una lista de options = etiqueta,key[,icono]
     """
@@ -206,7 +213,7 @@ class CB(QtWidgets.QComboBox):
         @param li_options: lista de (etiqueta,key)
         @param init_value: valor inicial
         """
-        QtWidgets.QComboBox.__init__(self, parent)
+        QComboBox.__init__(self, parent)
         self.rehacer(li_options, init_value)
         if extend_seek:
             self.setEditable(True)
@@ -261,7 +268,7 @@ class CB(QtWidgets.QComboBox):
 
     def set_multiline(self, max_px):
         self.setFixedWidth(max_px)
-        listView = QtWidgets.QListView()
+        listView = QListView()
         # Turn On the word wrap
         listView.setWordWrap(True)
         # set popup view widget into the combo box
@@ -269,7 +276,7 @@ class CB(QtWidgets.QComboBox):
         return self
 
 
-class CHB(QtWidgets.QCheckBox):
+class CHB(QCheckBox):
     """
     CheckBox : entrada de una campo seleccionable
     """
@@ -279,7 +286,7 @@ class CHB(QtWidgets.QCheckBox):
         @param etiqueta: label mostrado
         @param init_value: valor inicial : True/False
         """
-        QtWidgets.QCheckBox.__init__(self, etiqueta, parent)
+        QCheckBox.__init__(self, etiqueta, parent)
         self.setChecked(init_value)
 
     def set_value(self, si):
@@ -302,7 +309,7 @@ class CHB(QtWidgets.QCheckBox):
         return self
 
 
-class LB(QtWidgets.QLabel):
+class LB(QLabel):
     """
     Etiquetas de texto.
     """
@@ -312,9 +319,9 @@ class LB(QtWidgets.QLabel):
         @param texto: texto inicial.
         """
         if texto:
-            QtWidgets.QLabel.__init__(self, texto, parent)
+            QLabel.__init__(self, texto, parent)
         else:
-            QtWidgets.QLabel.__init__(self, parent)
+            QLabel.__init__(self, parent)
 
         self.setOpenExternalLinks(True)
         self.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction | QtCore.Qt.TextInteractionFlag.TextSelectableByMouse)
@@ -409,7 +416,7 @@ class LB(QtWidgets.QLabel):
         return self
 
     def set_fixed_lines(self, num_lines):
-        font_metrics = QtGui.QFontMetrics(self.font())
+        font_metrics = QFontMetrics(self.font())
         line_height = font_metrics.height()
         required_height = line_height * num_lines
         self.setFixedHeight(required_height)
@@ -420,7 +427,7 @@ def LB2P(parent, texto):
     return LB(parent, texto + ": ")
 
 
-class PB(QtWidgets.QPushButton):
+class PB(QPushButton):
     """
     Boton.
     """
@@ -431,7 +438,7 @@ class PB(QtWidgets.QPushButton):
         @param texto: etiqueta inicial.
         @param rutina: rutina a la que se conecta el boton.
         """
-        QtWidgets.QPushButton.__init__(self, texto, parent)
+        QPushButton.__init__(self, texto, parent)
         self.w_parent = parent
         self.setFlat(plano)
         if rutina:
@@ -493,13 +500,13 @@ class PB(QtWidgets.QPushButton):
         self.setAutoDefault(ok)
 
 
-class RB(QtWidgets.QRadioButton):
+class RB(QRadioButton):
     """
     RadioButton: lista de alternativas
     """
 
     def __init__(self, w_parent, texto, rutina=None):
-        QtWidgets.QRadioButton.__init__(self, texto, w_parent)
+        QRadioButton.__init__(self, texto, w_parent)
         if rutina:
             self.clicked.connect(rutina)
 
@@ -508,13 +515,13 @@ class RB(QtWidgets.QRadioButton):
         return self
 
 
-class GB(QtWidgets.QGroupBox):
+class GB(QGroupBox):
     """
     GroupBox: Recuadro para agrupamiento de controles
     """
 
     def __init__(self, w_parent, texto, layout):
-        QtWidgets.QGroupBox.__init__(self, texto, w_parent)
+        QGroupBox.__init__(self, texto, w_parent)
         self.setLayout(layout)
         self.w_parent = w_parent
 
@@ -544,7 +551,7 @@ class GB(QtWidgets.QGroupBox):
         return self
 
 
-class EM(QtWidgets.QTextEdit):
+class EM(QTextEdit):
     """
     Control de entrada de texto en varias lineas.
     """
@@ -553,7 +560,7 @@ class EM(QtWidgets.QTextEdit):
         """
         @param texto: texto inicial.
         """
-        QtWidgets.QTextEdit.__init__(self, parent)
+        QTextEdit.__init__(self, parent)
         self.parent = parent
 
         self.menu = None  # menu de contexto
@@ -627,7 +634,7 @@ class EM(QtWidgets.QTextEdit):
         return self
 
     def set_wrap(self, siPoner):
-        self.setWordWrapMode(QtGui.QTextOption.WrapMode.WordWrap if siPoner else QtGui.QTextOption.WrapMode.NoWrap)
+        self.setWordWrapMode(QTextOption.WrapMode.WordWrap if siPoner else QTextOption.WrapMode.NoWrap)
         return self
 
     def capturaCambios(self, rutina):
@@ -646,7 +653,7 @@ class EM(QtWidgets.QTextEdit):
         return self.textCursor().position()
 
 
-class Menu(QtWidgets.QMenu):
+class Menu(QMenu):
     """
     Menu popup.
 
@@ -678,7 +685,7 @@ class Menu(QtWidgets.QMenu):
     def __init__(self, parent, titulo=None, icono=None, is_disabled=False, puntos=None, bold=True):
 
         self.parent = parent
-        QtWidgets.QMenu.__init__(self, parent)
+        QMenu.__init__(self, parent)
 
         if titulo:
             self.setTitle(titulo)
@@ -692,7 +699,7 @@ class Menu(QtWidgets.QMenu):
             tl = FontType(puntos=puntos, peso=75) if bold else FontType(puntos=puntos)
             self.setFont(tl)
 
-        app = QtWidgets.QApplication.instance()
+        app = QApplication.instance()
         style = app.style().metaObject().className()
         self.si_separadores = style != "QFusionStyle"
 
@@ -709,9 +716,9 @@ class Menu(QtWidgets.QMenu):
 
     def opcion(self, key, label, icono=None, is_disabled=False, font_type=None, is_ckecked=None, tooltip: str = "", shortcut: str = ""):
         if icono:
-            accion = QtGui.QAction(icono, label, self)
+            accion = QAction(icono, label, self)
         else:
-            accion = QtGui.QAction(label, self)
+            accion = QAction(label, self)
         accion.key = key
         if is_disabled:
             accion.setDisabled(True)
@@ -723,7 +730,7 @@ class Menu(QtWidgets.QMenu):
         if tooltip != "":
             accion.setToolTip(tooltip)
         if shortcut:
-            accion.setShortcut(QtGui.QKeySequence(shortcut))
+            accion.setShortcut(QKeySequence(shortcut))
         self.addAction(accion)
         return accion
 
@@ -736,7 +743,7 @@ class Menu(QtWidgets.QMenu):
     def mousePressEvent(self, event):
         self.siIzq = event.button() == QtCore.Qt.MouseButton.LeftButton
         self.siDer = event.button() == QtCore.Qt.MouseButton.RightButton
-        resp = QtWidgets.QMenu.mousePressEvent(self, event)
+        resp = QMenu.mousePressEvent(self, event)
         return resp
 
     def separador(self):
@@ -745,15 +752,15 @@ class Menu(QtWidgets.QMenu):
 
     def lanza(self):
         QtCore.QCoreApplication.processEvents()
-        QtWidgets.QApplication.processEvents()
-        resp = self.exec_(QtGui.QCursor.pos())
+        QApplication.processEvents()
+        resp = self.exec_(QCursor.pos())
         if resp:
             return resp.key
         else:
             return None
 
 
-class TB(QtWidgets.QToolBar):
+class TB(QToolBar):
     """
     Crea una barra de tareas simple.
 
@@ -768,7 +775,7 @@ class TB(QtWidgets.QToolBar):
 
     def __init__(self, parent, li_acciones, with_text=True, icon_size=32, rutina=None, puntos=None, background=None):
 
-        QtWidgets.QToolBar.__init__(self, "BASIC", parent)
+        QToolBar.__init__(self, "BASIC", parent)
 
         self.setIconSize(QtCore.QSize(icon_size, icon_size))
 
@@ -799,7 +806,7 @@ class TB(QtWidgets.QToolBar):
                     self.addWidget(LB("").anchoFijo(datos))
                 else:
                     titulo, icono, key = datos
-                    accion = QtGui.QAction(titulo, self.parent)
+                    accion = QAction(titulo, self.parent)
                     accion.setIcon(icono)
                     accion.setIconText(titulo)
                     accion.triggered.connect(self.rutina)
@@ -830,15 +837,15 @@ class TB(QtWidgets.QToolBar):
             if accion.key == key:
                 accion.setVisible(value)
 
-    # def mousePressEvent(self, event: QtGui.QMouseEvent):
+    # def mousePressEvent(self, event: QMouseEvent):
     #     if event.button() == QtCore.Qt.MouseButton.RightButton:
     #         if hasattr(self.parent, "toolbar_rightmouse"):
     #             self.parent.toolbar_rightmouse()
     #             return
-    #     QtWidgets.QToolBar.mousePressEvent(self, event)
+    #     QToolBar.mousePressEvent(self, event)
 
 
-class TBrutina(QtWidgets.QToolBar):
+class TBrutina(QToolBar):
     """
     Crea una barra de tareas simple.
 
@@ -854,7 +861,7 @@ class TBrutina(QtWidgets.QToolBar):
             self, parent, li_acciones=None, with_text=True, icon_size=None, puntos=None, background=None, style=None
     ):
 
-        QtWidgets.QToolBar.__init__(self, "BASIC", parent)
+        QToolBar.__init__(self, "BASIC", parent)
         self.tooltip_default = False
         if style:
             self.setToolButtonStyle(style)
@@ -883,7 +890,7 @@ class TBrutina(QtWidgets.QToolBar):
             self.li_acciones = []
 
     def new(self, titulo, icono, key, sep=True, tool_tip=None):
-        accion = QtGui.QAction(titulo, self.parent)
+        accion = QAction(titulo, self.parent)
         accion.setIcon(icono)
         accion.setIconText(titulo)
         if tool_tip:
@@ -948,32 +955,32 @@ class TBrutina(QtWidgets.QToolBar):
             accion.setEnabled(value)
 
     def set_action_title(self, key, title):
-        accion: QtGui.QAction
+        accion: QAction
         accion = self.dic_toolbar.get(key, None)
         if accion:
             accion.setIconText(title)
             accion.setToolTip(title)
 
-    def mousePressEvent(self, event: QtGui.QMouseEvent):
-        QtWidgets.QToolBar.mousePressEvent(self, event)
+    def mousePressEvent(self, event: QMouseEvent):
+        QToolBar.mousePressEvent(self, event)
 
 
-class FontType(QtGui.QFont):
+class FontType(QFont):
     def __init__(self, name="", puntos=8, peso=50, is_italic=False, is_underlined=False, is_striked=False, txt=None):
-        QtGui.QFont.__init__(self)
+        QFont.__init__(self)
         if txt is None:
             cursiva = 1 if is_italic else 0
             subrayado = 1 if is_underlined else 0
             tachado = 1 if is_striked else 0
             if not name:
-                app = QtWidgets.QApplication.instance()
+                app = QApplication.instance()
                 font = app.font()
                 name = font.family()
             txt = "%s,%d,-1,5,%d,%d,%d,%d,0,0" % (name, puntos, peso, cursiva, subrayado, tachado)
         self.fromString(txt)
 
 
-class Tab(QtWidgets.QTabWidget):
+class Tab(QTabWidget):
     def new_tab(self, widget, texto, pos=None):
         if pos is None:
             self.addTab(widget, texto)
@@ -983,7 +990,7 @@ class Tab(QtWidgets.QTabWidget):
         self.set_tooltip_x(pos, "")
 
     def set_tooltip_x(self, pos, txt):
-        p = self.tabBar().tabButton(pos, QtWidgets.QTabBar.RightSide)
+        p = self.tabBar().tabButton(pos, QTabBar.RightSide)
         if p:
             p.setToolTip(txt)
 
@@ -1009,7 +1016,7 @@ class Tab(QtWidgets.QTabWidget):
 
     def ponIcono(self, pos, icono):
         if icono is None:
-            icono = QtGui.QIcon()
+            icono = QIcon()
         self.setTabIcon(pos, icono)
 
     def set_font(self, f):
@@ -1027,22 +1034,22 @@ class Tab(QtWidgets.QTabWidget):
         self.currentChanged.connect(dispatch)
 
     def quita_x(self, pos):
-        self.tabBar().tabButton(pos, QtWidgets.QTabBar.RightSide).hide()
+        self.tabBar().tabButton(pos, QTabBar.RightSide).hide()
 
         # def formaTriangular( self ):
         # self.setTabShape(self.Triangular)
 
 
-class SL(QtWidgets.QSlider):
+class SL(QSlider):
     def __init__(self, parent, minimo, maximo, nvalor, dispatch, tick=10, step=1):
-        QtWidgets.QSlider.__init__(self, QtCore.Qt.Orientation.Horizontal, parent)
+        QSlider.__init__(self, QtCore.Qt.Orientation.Horizontal, parent)
 
         self.setMinimum(minimo)
         self.setMaximum(maximo)
 
         self.dispatch = dispatch
         if tick:
-            self.setTickPosition(QtWidgets.QSlider.TicksBelow)
+            self.setTickPosition(QSlider.TicksBelow)
             self.setTickInterval(tick)
         self.setSingleStep(step)
 
@@ -1065,60 +1072,4 @@ class SL(QtWidgets.QSlider):
         self.setFixedWidth(px)
         return self
 
-    # class PRB(QtWidgets.QProgressBar):
-    # def __init__(self, minimo, maximo):
-    # QtWidgets.QProgressBar.__init__(self)
-    # self.setMinimum(minimo)
-    # self.setMaximum(maximo)
-
-    # def ponFormatoValor(self):
-    # self.setFormat("%v")
-    # return self
-
-    # class Fecha(QtWidgets.QDateTimeEdit):
-    # def __init__(self, fecha=None):
-    # QtWidgets.QDateTimeEdit.__init__(self)
-
-    # self.setDisplayFormat("dd-MM-yyyy")
-
-    # self.setCalendarPopup(True)
-    # calendar = QtWidgets.QCalendarWidget()
-    # calendar.setFirstDayOfWeek(QtCore.Qt.DayOfWeek.Monday)
-    # calendar.setGridVisible(True)
-    # self.setCalendarWidget(calendar)
-
-    # if fecha:
-    # self.ponFecha(fecha)
-
-    # def fecha2date(self, fecha):
-    # date = QtCore.QDate()
-    # date.setDate(fecha.year, fecha.month, fecha.day)
-    # return date
-
-    # def ponFecha(self, fecha):
-    # self.setDate(self.fecha2date(fecha))
-    # return self
-
-    # def fecha(self):
-    # date = self.date()
-    # fecha = datetime.date(date.year(), date.month(), date.day())
-    # return fecha
-
-    # def minima(self, fecha):
-    # previa = self.date()
-    # fecha = self.fecha2date(fecha)
-
-    # if previa < fecha:
-    # self.ponFecha(fecha)
-
-    # self.setMinimumDate(fecha)
-    # return self
-
-    # def maxima(self, fecha):
-    # previa = self.date()
-    # fecha = self.fecha2date(fecha)
-    # if previa > fecha:
-    # self.ponFecha(fecha)
-
-    # self.setMaximumDate(fecha)
-    # return self
+    

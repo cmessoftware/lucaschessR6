@@ -32,7 +32,15 @@ __license__ = __doc__
 
 import os
 
-from PySide6 import QtCore, QtGui, QtWidgets
+import datetime
+from PySide6.QtWidgets import (
+    QMainWindow, QVBoxLayout, QWidget, QCalendarWidget,
+    QLabel, QPushButton, QHBoxLayout,QDialog, QFormLayout, QSpinBox, 
+    QComboBox, QFontComboBox, QDial, QSlider, QLineEdit, QCheckBox,
+    QStyle,QApplication,QTabWidget
+)
+from PySide6.QtGui import QFontMetrics, QColor, QDoubleValidator,QIcon
+from PySide6.QtCore import Qt,QCoreApplication
 
 import Code
 from Code.QT import Colocacion
@@ -43,7 +51,7 @@ from Code.QT import QTVarios
 from Code.QT import SelectFiles
 
 separador = (None, None)
-SPINBOX, COMBOBOX, COLORBOX, DIAL, SLIDER, EDITBOX, FICHERO, CARPETA, FONTCOMBOBOX, CHSPINBOX = range(10)
+SPINBOX, COMBOBOX, COLORBOX, DIAL, SLIDER, EDITBOX, FICHERO, CARPETA, FONTCOMBOBOX,CALENDAR, CHSPINBOX = range(11)
 
 
 class FormLayout:
@@ -118,6 +126,9 @@ class FormLayout:
     def slider(self, label, minimo, maximo, init_value, siporc=True):
         sld = XSlider(label, minimo, maximo, siporc)
         self.li_gen.append((sld, init_value))
+        
+    def calendar(self, label, init_value):
+        self.li_gen.append((Calendar(), init_value))
 
     def apart(self, title):
         self.li_gen.append((None, title + ":"))
@@ -158,6 +169,9 @@ class FormLayout:
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
 
+    def match_case(self, label: str, init_value: bool):
+        self.li_gen.append((label + ":", init_value))
+
 
 class Spinbox:
     def __init__(self, label, minimo, maximo, ancho):
@@ -167,6 +181,60 @@ class Spinbox:
         self.maximo = maximo
         self.ancho = ancho
 
+class Calendar(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.tipo = CALENDAR
+        self.label = QLabel("Select a date:")
+        self.setWindowTitle("Calendar")
+        self.setGeometry(100, 100, 400, 300)
+
+        # Main widget
+        self.central_widget = QWidget()
+        self.setCentralWidget(self.central_widget)
+
+        # Layout
+        layout = QVBoxLayout()
+
+        # Calendar widget
+        self.calendar = QCalendarWidget()
+        self.calendar.setGridVisible(True)
+        self.calendar.selectionChanged.connect(self.update_selected_date)
+        self.calendar.activated.connect(self.accept_date)  # Double-click event
+
+        # Label to display selected date
+        self.date_label = QLabel("Selected date will appear here")
+
+        # Buttons for cancel and accept
+        button_layout = QHBoxLayout()
+  
+        # Add widgets to the layout
+        layout.addWidget(self.calendar)
+        layout.addWidget(self.date_label)
+        layout.addLayout(button_layout)
+
+        # Set layout
+        self.central_widget.setLayout(layout)
+
+        # Placeholder for the selected date
+        self.selected_date = None
+
+    def update_selected_date(self):
+        # Update the label with the currently selected date
+        self.selected_date = self.calendar.selectedDate()
+        self.date_label.setText(f"Selected Date: {self.selected_date.toString()}")
+
+    def cancel_date(self):
+        # Reset the label and clear the selected date
+        self.selected_date = None
+        
+
+    def accept_date(self) -> datetime.datetime:
+        # Confirm the selected date
+        if self.selected_date is None:
+            self.selected_date = self.calendar.selectedDate()
+        return self.selected_date.toPyDate()
 
 class CHSpinbox:
     def __init__(self, label, minimo, maximo, ancho, chlabel):
@@ -260,9 +328,9 @@ class Fichero:
         self.li_histo = li_histo
 
 
-class BotonFichero(QtWidgets.QPushButton):
+class BotonFichero(QPushButton):
     def __init__(self, file, extension, si_save, si_relativo, ancho_minimo, fichero_defecto):
-        QtWidgets.QPushButton.__init__(self)
+        QPushButton.__init__(self)
         self.clicked.connect(self.cambiaFichero)
         self.file = file
         self.extension = extension
@@ -271,7 +339,7 @@ class BotonFichero(QtWidgets.QPushButton):
         self.anchoMinimo = ancho_minimo
         if ancho_minimo:
             self.setMinimumWidth(ancho_minimo)
-        self.qm = QtGui.QFontMetrics(self.font())
+        self.qm = QFontMetrics(self.font())
         self.file = file
         self.ficheroDefecto = fichero_defecto
         self.is_first_time = True
@@ -305,9 +373,9 @@ class BotonFichero(QtWidgets.QPushButton):
         self.setText(txt)
 
 
-class LBotonFichero(QtWidgets.QHBoxLayout):
+class LBotonFichero(QHBoxLayout):
     def __init__(self, parent, config, file):
-        QtWidgets.QHBoxLayout.__init__(self)
+        QHBoxLayout.__init__(self)
 
         if config.li_histo and not config.ficheroDefecto:
             config.ficheroDefecto = os.path.dirname(config.li_histo[0])
@@ -347,9 +415,9 @@ class LBotonFichero(QtWidgets.QHBoxLayout):
         self.boton.ponFichero("")
 
 
-class LBotonCarpeta(QtWidgets.QHBoxLayout):
+class LBotonCarpeta(QHBoxLayout):
     def __init__(self, parent, config, carpeta):
-        QtWidgets.QHBoxLayout.__init__(self)
+        QHBoxLayout.__init__(self)
 
         self.config = config
         self.parent = parent
@@ -374,13 +442,13 @@ class LBotonCarpeta(QtWidgets.QHBoxLayout):
         self.boton.set_text(self.carpeta)
 
 
-class BotonColor(QtWidgets.QPushButton):
+class BotonColor(QPushButton):
     def __init__(self, parent, ancho, alto, siSTR, dispatch):
-        QtWidgets.QPushButton.__init__(self, parent)
+        QPushButton.__init__(self, parent)
 
         self.setFixedSize(ancho, alto)
 
-        self.clicked.connect(self.pulsado)
+        self.clicked.connect(self.checked)
 
         self.xcolor = "" if siSTR else -1
 
@@ -393,17 +461,17 @@ class BotonColor(QtWidgets.QPushButton):
         self.xcolor = xcolor
 
         if self.siSTR:
-            color = QtGui.QColor(xcolor)
+            color = QColor(xcolor)
         else:
-            color = QtGui.QColor()
+            color = QColor()
             color.setRgba(xcolor)
         self.setStyleSheet("QWidget { background-color: %s }" % color.name())
 
-    def pulsado(self):
+    def checked(self):
         if self.siSTR:
-            color = QtGui.QColor(self.xcolor)
+            color = QColor(self.xcolor)
         else:
-            color = QtGui.QColor()
+            color = QColor()
             color.setRgba(self.xcolor)
         color = QTVarios.select_color(color)
         if color:
@@ -418,15 +486,15 @@ class BotonColor(QtWidgets.QPushButton):
         return self.xcolor
 
 
-class BotonCheckColor(QtWidgets.QHBoxLayout):
+class BotonCheckColor(QHBoxLayout):
     def __init__(self, parent, ancho, alto, dispatch):
-        QtWidgets.QHBoxLayout.__init__(self)
+        QHBoxLayout.__init__(self)
 
         self.boton = BotonColor(parent, ancho, alto, False, dispatch)
-        self.checkbox = QtWidgets.QCheckBox(parent)
+        self.checkbox = QCheckBox(parent)
         self.checkbox.setFixedSize(20 * Code.factor_big_fonts, 20 * Code.factor_big_fonts)
 
-        self.checkbox.clicked.connect(self.pulsado)
+        self.checkbox.clicked.connect(self.checked)
 
         self.dispatch = dispatch
 
@@ -448,11 +516,11 @@ class BotonCheckColor(QtWidgets.QHBoxLayout):
         else:
             return -1
 
-    def pulsado(self):
+    def checked(self):
         if self.checkbox.isChecked():
             if self.boton.xcolor == -1:
                 self.boton.set_color_foreground(0)
-                self.boton.pulsado()
+                self.boton.checked()
             else:
                 self.boton.set_color_foreground(self.boton.xcolor)
             self.boton.show()
@@ -473,7 +541,7 @@ class Edit(Controles.ED):
         if config.ancho:
             self.anchoFijo(config.ancho)
         if config.is_password:
-            self.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
+            self.setEchoMode(QLineEdit.EchoMode.Password)
         self.tipo = config.tipoCampo
         self.decimales = config.decimales
         if self.tipo == float:
@@ -505,12 +573,12 @@ class DialNum(Colocacion.H):
     def __init__(self, parent, config, dispatch):
         Colocacion.H.__init__(self)
 
-        self.dial = QtWidgets.QDial(parent)
+        self.dial = QDial(parent)
         self.dial.setMinimum(config.minimo)
         self.dial.setMaximum(config.maximo)
         self.dial.setNotchesVisible(True)
         self.dial.setFixedSize(40, 40)
-        self.lb = QtWidgets.QLabel(parent)
+        self.lb = QLabel(parent)
 
         self.dispatch = dispatch
 
@@ -544,16 +612,16 @@ class Slider(Colocacion.H):
     def __init__(self, parent, config, dispatch):
         Colocacion.H.__init__(self)
 
-        self.slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal, parent)
-        self.slider.setFocusPolicy(QtCore.Qt.FocusPolicy.StrongFocus)
-        self.slider.setTickPosition(QtWidgets.QSlider.TicksBothSides)
+        self.slider = QSlider(Qt.Orientation.Horizontal, parent)
+        self.slider.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+        self.slider.setTickPosition(QSlider.TicksBothSides)
         self.slider.setTickInterval(1)
         self.slider.setSingleStep(1)
         self.slider.setMinimum(config.minimo)
         self.slider.setMaximum(config.maximo)
 
         self.slider.valueChanged.connect(self.movido)
-        self.lb = QtWidgets.QLabel(parent)
+        self.lb = QLabel(parent)
 
         self.dispatch = dispatch
 
@@ -583,16 +651,16 @@ class Slider(Colocacion.H):
         return self.slider.value()
 
 
-class FormWidget(QtWidgets.QWidget):
+class FormWidget(QWidget):
     def __init__(self, data, comment="", parent=None, dispatch=None):
         super(FormWidget, self).__init__(parent)
         self.data = data
         self.widgets = []
         self.labels = []
-        self.formlayout = QtWidgets.QFormLayout(self)
+        self.formlayout = QFormLayout(self)
         if comment:
-            self.formlayout.addRow(QtWidgets.QLabel(comment, self))
-            self.formlayout.addRow(QtWidgets.QLabel(" ", self))
+            self.formlayout.addRow(QLabel(comment, self))
+            self.formlayout.addRow(QLabel(" ", self))
 
         self.setup(dispatch)
 
@@ -601,7 +669,7 @@ class FormWidget(QtWidgets.QWidget):
 
             # Separador
             if label is None and value is None:
-                self.formlayout.addRow(QtWidgets.QLabel(" ", self), QtWidgets.QLabel(" ", self))
+                self.formlayout.addRow(QLabel(" ", self), QLabel(" ", self))
                 self.widgets.append(None)
                 self.labels.append(None)
 
@@ -611,7 +679,7 @@ class FormWidget(QtWidgets.QWidget):
                     lb = Controles.LB(self, value[1:])
                 elif value.startswith("@|"):
                     lb = Controles.LB(self, value[2:])
-                    lb.setTextFormat(QtCore.Qt.TextFormat.PlainText)
+                    lb.setTextFormat(Qt.TextFormat.PlainText)
                     lb.setWordWrap(True)
                 else:
                     lb = Controles.LB(self, QTUtil2.resalta(value, 3))
@@ -626,7 +694,7 @@ class FormWidget(QtWidgets.QWidget):
                     config = label
                     tipo = config.tipo
                     if tipo == SPINBOX:
-                        field = QtWidgets.QSpinBox(self)
+                        field = QSpinBox(self)
                         field.setMinimum(config.minimo)
                         field.setMaximum(config.maximo)
                         field.setValue(value)
@@ -643,7 +711,7 @@ class FormWidget(QtWidgets.QWidget):
                         field.lista = config.lista
                         if dispatch:
                             field.currentIndexChanged.connect(dispatch)
-                            # field = QtWidgets.QComboBox(self)
+                            # field = QComboBox(self)
                             # for n, tp in enumerate(config.lista):
                             # if len(tp) == 3:
                             # field.addItem( tp[2], tp[0], tp[1] )
@@ -654,7 +722,7 @@ class FormWidget(QtWidgets.QWidget):
                             # if dispatch:
                             # field.currentIndexChanged.connect( dispatch )
                     elif tipo == FONTCOMBOBOX:
-                        field = QtWidgets.QFontComboBox(self)
+                        field = QFontComboBox(self)
                         if value:
                             font = Controles.FontType(value)
                             field.setCurrentFont(font)
@@ -695,6 +763,9 @@ class FormWidget(QtWidgets.QWidget):
 
                     elif tipo == CARPETA:
                         field = LBotonCarpeta(self, config, value)
+                        
+                    elif tipo == CALENDAR:
+                        field = Calendar()
 
                     label = config.label
 
@@ -707,12 +778,12 @@ class FormWidget(QtWidgets.QWidget):
                     field = BotonFichero(file, extension, si_save, si_relativo, 250, file)
                 # Texto
                 elif isinstance(value, (bytes, str)):
-                    field = QtWidgets.QLineEdit(value, self)
+                    field = QLineEdit(value, self)
 
                 # Combo
                 elif isinstance(value, (list, tuple)):
                     selindex = value.pop(0)
-                    field = QtWidgets.QComboBox(self)
+                    field = QComboBox(self)
                     if isinstance(value[0], (list, tuple)):
                         keys = [key for key, _val in value]
                         value = [val for _key, val in value]
@@ -729,32 +800,32 @@ class FormWidget(QtWidgets.QWidget):
 
                 # Checkbox
                 elif isinstance(value, bool):
-                    field = QtWidgets.QCheckBox(" ", self)
-                    field.setCheckState(QtCore.Qt.CheckState.Checked if value else QtCore.Qt.CheckState.Unchecked)
+                    field = QCheckBox(" ", self)
+                    field.setCheckState(Qt.CheckState.Checked if value else Qt.CheckState.Unchecked)
                     if dispatch:
                         field.stateChanged.connect(dispatch)
 
                 # Float seconds
                 elif isinstance(value, float):  # Para los seconds
                     v = "%0.1f" % value
-                    field = QtWidgets.QLineEdit(v, self)
-                    field.setValidator(QtGui.QDoubleValidator(0.0, 36000.0, 1, field))  # Para los seconds
-                    field.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
+                    field = QLineEdit(v, self)
+                    field.setValidator(QDoubleValidator(0.0, 36000.0, 1, field))  # Para los seconds
+                    field.setAlignment(Qt.AlignmentFlag.AlignRight)
                     field.setFixedWidth(40 * Code.factor_big_fonts)
 
                 # Numero
                 elif isinstance(value, int):
-                    field = QtWidgets.QSpinBox(self)
+                    field = QSpinBox(self)
                     field.setMaximum(9999)
                     field.setValue(value)
                     field.setFixedWidth(80 * Code.factor_big_fonts)
 
                 # Linea
                 else:
-                    field = QtWidgets.QLineEdit(repr(value), self)
+                    field = QLineEdit(repr(value), self)
 
                 self.formlayout.addRow(label, field)
-                self.formlayout.setLabelAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
+                self.formlayout.setLabelAlignment(Qt.AlignmentFlag.AlignRight)
                 self.widgets.append(field)
                 self.labels.append(label)
 
@@ -799,7 +870,7 @@ class FormWidget(QtWidgets.QWidget):
                 else:
                     value = value[index]
             elif isinstance(value, bool):
-                value = field.checkState() == QtCore.Qt.CheckState.Checked
+                value = field.checkState() == Qt.CheckState.Checked
             elif isinstance(value, float):
                 value = float(field.text().replace(",", "."))
             elif isinstance(value, int):
@@ -820,11 +891,11 @@ class FormWidget(QtWidgets.QWidget):
         return None
 
 
-class FormTabWidget(QtWidgets.QWidget):
+class FormTabWidget(QWidget):
     def __init__(self, datalist, comment="", parent=None, dispatch=None):
         super(FormTabWidget, self).__init__(parent)
         layout = Colocacion.V()
-        self.tabwidget = QtWidgets.QTabWidget()
+        self.tabwidget = QTabWidget()
         layout.control(self.tabwidget)
         self.setLayout(layout)
         self.widgetlist = []
@@ -841,12 +912,12 @@ class FormTabWidget(QtWidgets.QWidget):
         return self.widgetlist[numTab].getWidget(number)
 
 
-class FormDialog(QtWidgets.QDialog):
+class FormDialog(QDialog):
     def __init__(self, data, title="", comment="", icon=None, parent=None, if_default=True, dispatch=None,
                  li_extra_options=None):
-        super(FormDialog, self).__init__(parent, QtCore.Qt.WindowType.Dialog)
+        super(FormDialog, self).__init__(parent, Qt.WindowType.Dialog)
         flags = self.windowFlags()
-        flags &= ~QtCore.Qt.WindowContextHelpButtonHint
+        flags &= ~Qt.WindowContextHelpButtonHint
         self.setWindowFlags(flags)
 
         # Form
@@ -875,8 +946,8 @@ class FormDialog(QtWidgets.QDialog):
         self.setLayout(layout)
 
         self.setWindowTitle(title)
-        if not isinstance(icon, QtGui.QIcon):
-            icon = QtWidgets.QWidget().style().standardIcon(QtWidgets.QStyle.SP_MessageBoxQuestion)
+        if not isinstance(icon, QIcon):
+            icon = QWidget().style().standardIcon(QStyle.SP_MessageBoxQuestion)
         self.setWindowIcon(icon)
 
     def aceptar(self):
@@ -932,6 +1003,6 @@ def fedit(
     if anchoMinimo:
         dialog.setMinimumWidth(anchoMinimo)
     if dialog.exec_():
-        QtCore.QCoreApplication.processEvents()
-        QtWidgets.QApplication.processEvents()
+        QCoreApplication.processEvents()
+        QApplication.processEvents()
         return dialog.get()

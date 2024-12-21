@@ -8,7 +8,6 @@ from Code.QT import Iconos
 from Code.QT import LCDialog
 from Code.QT import QTUtil
 from Code.QT import QTVarios
-from Code.Util import DateSelector
 from Code.QT import FormLayout
 from Code.QT import QTUtil2
 from Code.Services import ChessDotCom
@@ -32,24 +31,25 @@ class WChessCom(LCDialog.LCDialog):
             form = FormLayout.FormLayout(self, title, Iconos.ChessDotCom(), anchoMinimo=640)
 
             form.separador()
-
             form.edit(_("Chess.com user"), self.chesscom_user)
             form.separador()
-            form.edit(_("Date"), self.date)
+       
+            form.calendar(("Date"), self.date)
 
             form.separador()
 
             result = form.run()
 
             if result is None:
-                return
+                return ""
 
             if not result[1]:
                 QTUtil2.message_error(self, _("Chess.com user missing"))
                 continue
 
             username = result[1][0]  
-            date = datetime.datetime.strptime(result[1][1], "%Y/%m/%d")
+            date_string = result[1][1]
+            date = datetime.datetime.strptime(date_string, "%Y/%m/%d")
             games = ChessDotCom.ChessDotComService.get_user_pgns(username, date)
             
             return games
