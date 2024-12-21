@@ -1,0 +1,18 @@
+No tests found, check the SearchPattern in the extension settings.
+
+
+Stacktrace: 
+    at S.syncTopLevel (c:\Users\CFO Tech\.vscode\extensions\ms-vscode.test-adapter-converter-0.2.1\out\extension.js:6:3)
+    at kh.value (c:\Users\CFO Tech\.vscode\extensions\ms-vscode.test-adapter-converter-0.2.1\out\extension.js:3:4541)
+    at P.B (file:///c:/Users/CFO%20Tech/AppData/Local/Programs/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:30:746)
+    at P.fire (file:///c:/Users/CFO%20Tech/AppData/Local/Programs/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:30:964)
+    at kh.value (c:\Users\CFO Tech\.vscode\extensions\hbenl.vscode-test-explorer-2.22.1\out\hub\testHub.js:53:43)
+    at P.B (file:///c:/Users/CFO%20Tech/AppData/Local/Programs/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:30:746)
+    at P.C (file:///c:/Users/CFO%20Tech/AppData/Local/Programs/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:30:816)
+    at P.fire (file:///c:/Users/CFO%20Tech/AppData/Local/Programs/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:30:1033)
+    at finish (c:\Users\CFO Tech\.vscode\extensions\derivitec-ltd.vscode-dotnet-adapter-1.4.3\out\TestExplorer.js:57:35)
+    at Object.fail (c:\Users\CFO Tech\.vscode\extensions\derivitec-ltd.vscode-dotnet-adapter-1.4.3\out\TestExplorer.js:62:41)
+    at DotnetAdapter.<anonymous> (c:\Users\CFO Tech\.vscode\extensions\derivitec-ltd.vscode-dotnet-adapter-1.4.3\out\DotnetAdapter.js:47:24)
+    at Generator.throw (<anonymous>)
+    at rejected (c:\Users\CFO Tech\.vscode\extensions\derivitec-ltd.vscode-dotnet-adapter-1.4.3\node_modules\tslib\tslib.js:108:69)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)

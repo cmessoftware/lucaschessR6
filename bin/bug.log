@@ -301,3 +301,63 @@ Traceback (most recent call last):
     with open(fichero_pgn, "w") as q:
          ^^^^^^^^^^^^^^^^^^^^^^
 FileNotFoundError: [Errno 2] No such file or directory: 'C_\\Users\\CFO_Tech\\source\\repos\\lucaschess\\lucaschessR6\\bin\\cmess4401_2024-12-18_03_30_45.219831.pgn'
+2024-12-18 14:58:44.298240
+Traceback (most recent call last):
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 584, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 830, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 866, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1066, in visor_remote_pgn
+    user_name = self.set_chesscom_configuration()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 790, in set_chesscom_configuration
+    user, date = WindowChessCom.WChessCom(self)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Services\WindowChessCom.py", line 30, in __init__
+    (_("New"), Iconos.Nuevo(), self.nuevo),
+                               ^^^^^^^^^^
+AttributeError: 'WChessCom' object has no attribute 'nuevo'
+2024-12-18 18:08:11.899755
+Traceback (most recent call last):
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 584, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 830, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 866, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1066, in visor_remote_pgn
+    user_name = self.set_chesscom_configuration()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 790, in set_chesscom_configuration
+    user, date = WindowChessCom.WChessCom(self)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Services\WindowChessCom.py", line 30, in __init__
+    (_("New"), Iconos.Nuevo(), self.nuevo),
+                               ^^^^^^^^^^
+AttributeError: 'WChessCom' object has no attribute 'nuevo'
+2024-12-18 19:03:27.451194
+Traceback (most recent call last):
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\MainWindow\WBase.py", line 370, in run_action
+    self.manager.run_action(self.sender().key)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 584, in run_action
+    self.menu_tools()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 830, in menu_tools
+    self.menuTools_run(resp)
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 866, in menuTools_run
+    self.visor_remote_pgn()
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 1066, in visor_remote_pgn
+    user_name = self.set_chesscom_configuration()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Procesador.py", line 790, in set_chesscom_configuration
+    user, date = WindowChessCom.WChessCom(self)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CFO Tech\source\repos\lucaschess\lucaschessR6\bin\Code\Services\WindowChessCom.py", line 30, in __init__
+    (_("New"), Iconos.Nuevo(), self.nuevo),
+                               ^^^^^^^^^^
+AttributeError: 'WChessCom' object has no attribute 'nuevo'

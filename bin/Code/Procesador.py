@@ -4,6 +4,7 @@ import random
 import stat
 import sys
 import webbrowser
+import uuid
 
 import Code
 from Code import Adjournments
@@ -84,7 +85,7 @@ from Code.Tournaments import WTournaments
 from Code.Washing import ManagerWashing, WindowWashing
 from Code.WritingDown import WritingDown, ManagerWritingDown
 from Code import RemoveResults
-from Code.Services import ChessDotCom
+from Code.Services.WindowChessCom import WChessCom
 
 
 class Procesador:
@@ -785,6 +786,7 @@ class Procesador:
         w = WindowOpenings.OpeningsPersonales(self)
         w.exec_()
 
+    
     def usuarios(self):
         WindowUsuarios.edit_users(self)
 
@@ -993,8 +995,8 @@ class Procesador:
         dic["ISWHITE"] = side == "B"
         self.manager.start(dic)
         
-    def read_remote_pgn(self, json_pgns, user_name, date):
-        fichero_pgn = user_name + "_" + str(date) + ".pgn"
+    def read_remote_pgn(self, json_pgns):
+        fichero_pgn = str(uuid.uuid4())[:8] + ".pgn"
         fichero_pgn = os.path.abspath(fichero_pgn)
         fichero_pgn = fichero_pgn.replace(":", "_") # No spaces and special characters in the name
         fichero_pgn = fichero_pgn.replace("C_", "C:")
@@ -1058,12 +1060,10 @@ class Procesador:
             self.read_pgn(path)
             
     def visor_remote_pgn(self):
-        user_name = "cmess4401"
-        date = datetime.datetime.now()
-        chess = ChessDotCom.ChessDotComService()
-        json_pgns = chess.get_user_pgns(user_name,date)
+        chess = WChessCom(self)
+        json_pgns = chess.get_pgns_from_chesscom_user() 
         if json_pgns is not None:
-            self.read_remote_pgn(json_pgns,user_name,date)
+            self.read_remote_pgn(json_pgns)
 
     def select_1_pgn(self, wparent=None):
         wparent = self.main_window if wparent is None else wparent
